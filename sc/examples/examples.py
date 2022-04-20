@@ -106,14 +106,15 @@ def rot_examples() -> Examples:
     """This function is called by sc/examples/generate.py to get RoT inputs."""
     import json
 
-    with open('../dialogue/train.json') as ofile:
+    with open('../dialogue/pure.json') as ofile:
         data = json.load(ofile)
 
     context_set = set()
 
     for x in data:
-        context_set.add(data[x]['context'])
+        context_set.add(x)
     final_list = list()
     for x in context_set:
         final_list.append((x+" [attrs] <{varies}> <all> [rot]", CATS),)
+    print(len(final_list))
     return final_list
