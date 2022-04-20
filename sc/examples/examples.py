@@ -116,3 +116,4 @@ def rot_examples() -> Examples:
     final_list = list()
     for x in context_set:
         final_list.append((x+" [attrs] <{varies}> <all> [rot]", CATS),)
+    return final_list
