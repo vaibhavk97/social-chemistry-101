@@ -27,7 +27,7 @@ CATS = (
     [
         "morality-ethics",
         "social-norms",
-        "advice",  # rarely want these
+        # "advice",  # rarely want these
         # "description",  # off by default, as very rarely want these
     ],
 )
@@ -104,15 +104,15 @@ def action_examples() -> Examples:
 
 def rot_examples() -> Examples:
     """This function is called by sc/examples/generate.py to get RoT inputs."""
-    return [
-        (
-            "Calling the cops on my friend for starving their dog. [attrs] <morality-ethics> <{varies}> <all> [rot]",
-            MFS,
-        ),
-        ("Wanting my boyfriend to go on a diet. [attrs] <{varies}> <all> [rot]", CATS),
-        ("Never wanting to talk to my parents. [attrs] <{varies}> [rot]", AGREEMENTS),
-        (
-            "Wanting my boyfriend to go on a diet. [attrs] <social-norms> <{varies}> [rot]",
-            AGREEMENTS,
-        ),
-    ]
+    import json
+
+    with open('../dialogue/train.json') as ofile:
+        data = json.load(ofile)
+
+    context_set = set()
+
+    for x in data:
+        context_set.add(data[x]['context'])
+    final_list = list()
+    for x in context_set:
+        final_list.append((x+" [attrs] <{varies}> <all> [rot]", CATS),)
